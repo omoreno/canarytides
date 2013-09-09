@@ -29,4 +29,24 @@ describe("Application Navigator", function() {
     expect(navigator.widgets.locationSelector).toBe(locationSelectorWidget);
   });
 
+  describe("Widgets", function(){
+
+    describe("textbox", function(){
+
+      var textBox;
+
+      beforeEach(function() {
+        textBox = new CanaryTides.Widgets.TextBox("textbox");
+      });
+
+      it("draws on initialize", function(){	
+        
+        textBox.initialize();
+        
+        var element = $("body").find("#textbox");
+        expect(element.length).toBe(1);
+      });
+
+    });
+  });
 });
