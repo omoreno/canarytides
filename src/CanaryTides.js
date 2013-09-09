@@ -2,6 +2,26 @@ window.CanaryTides = window.CanaryTides || {};
 
 (function(CanaryTides, undefined) {
 	
+	/******* Widgets *******/
+	function TextBoxWidget(elementId){
+		var self = this;
+		this.elementId = elementId;
+
+		var createDomElement = function () {
+			var element = $('<input>', { type: "text", id: self.elementId });
+			$("body").append(element);
+		};
+
+		this.initialize = function(){
+			createDomElement();
+		};
+
+	};
+	
+	CanaryTides.Widgets = CanaryTides.Widgets || {};
+	CanaryTides.Widgets.TextBox = TextBoxWidget;
+
+	/******* Main App Navigator *******/
 	function AppNavigator() {
 		this.widgets = {};
 
