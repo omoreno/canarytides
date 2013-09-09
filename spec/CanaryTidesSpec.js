@@ -48,5 +48,25 @@ describe("Application Navigator", function() {
       });
 
     });
+
+    describe("button", function(){
+
+      var button;
+
+      beforeEach(function() {
+        button = new CanaryTides.Widgets.Button("button");
+      });
+
+      it("draws on initialize", function(){ 
+        
+        button.initialize();
+        
+        var element = $("body").find("#button");
+        expect(element.length).toBe(1);
+      });
+
+    });
+
+
   });
 });
