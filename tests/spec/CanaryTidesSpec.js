@@ -13,4 +13,12 @@ describe("Application Navigator", function() {
     expect(navigator.widgets.searchButton).toBe(button);
   });
 
+  it("attaches date selector widget", function() {
+    var dateSelector = {};
+
+    navigator.attachDateSelector(dateSelector);
+ 
+    expect(navigator.widgets.dateSelector).toBe(dateSelector);
+  });
+
 });
