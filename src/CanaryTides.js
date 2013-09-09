@@ -28,11 +28,11 @@ window.CanaryTides = window.CanaryTides || {};
 	TextBoxWidget.prototype = new Widget();
 	TextBoxWidget.prototype.constructor = TextBoxWidget;
 
-	function ButtonWidget(elementId){
+	function ButtonWidget(elementId, caption){
 		Widget.call(this, elementId);
 		
 		this.createElement = function () {
-			return $('<button>', { id: this.elementId });
+			return $('<button>', { id: this.elementId, text: caption });
 		};
 	};
 	ButtonWidget.prototype = new Widget();
