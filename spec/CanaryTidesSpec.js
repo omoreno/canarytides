@@ -17,7 +17,7 @@ describe("Application Navigator", function() {
     var dateSelector = {};
 
     navigator.attachDateSelector(dateSelector);
- 
+    
     expect(navigator.widgets.dateSelector).toBe(dateSelector);
   });
 
@@ -64,6 +64,16 @@ describe("Widgets", function(){
       
       var element = $("body").find("#button");
       expect(element.length).toBe(1);
+    });
+
+    it("sets caption on initialize", function(){ 
+      button = new CanaryTides.Widgets.Button("otherButton", "TestCaption")
+
+      button.initialize();
+      
+      var element = $("body").find("#otherButton");
+      expect(element.length).toBe(1);
+      expect(element.text()).toBe("TestCaption");
     });
   });
 });
