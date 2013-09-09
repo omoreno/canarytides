@@ -28,45 +28,42 @@ describe("Application Navigator", function() {
  
     expect(navigator.widgets.locationSelector).toBe(locationSelectorWidget);
   });
+});
 
-  describe("Widgets", function(){
+describe("Widgets", function(){
 
-    describe("textbox", function(){
+  describe("textbox", function(){
 
-      var textBox;
+    var textBox;
 
-      beforeEach(function() {
-        textBox = new CanaryTides.Widgets.TextBox("textbox");
-      });
-
-      it("draws on initialize", function(){	
-        
-        textBox.initialize();
-        
-        var element = $("body").find("#textbox");
-        expect(element.length).toBe(1);
-      });
-
+    beforeEach(function() {
+      textBox = new CanaryTides.Widgets.TextBox("textbox");
     });
 
-    describe("button", function(){
-
-      var button;
-
-      beforeEach(function() {
-        button = new CanaryTides.Widgets.Button("button");
-      });
-
-      it("draws on initialize", function(){ 
-        
-        button.initialize();
-        
-        var element = $("body").find("#button");
-        expect(element.length).toBe(1);
-      });
-
+    it("draws on initialize", function(){	
+      
+      textBox.initialize();
+      
+      var element = $("body").find("#textbox");
+      expect(element.length).toBe(1);
     });
 
+  });
 
+  describe("button", function(){
+
+    var button;
+
+    beforeEach(function() {
+      button = new CanaryTides.Widgets.Button("button");
+    });
+
+    it("draws on initialize", function(){ 
+      
+      button.initialize();
+      
+      var element = $("body").find("#button");
+      expect(element.length).toBe(1);
+    });
   });
 });
