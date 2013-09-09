@@ -1,7 +1,7 @@
 window.CanaryTides = window.CanaryTides || {};
 
 (function(CanaryTides, undefined) {
-		
+	
 	function AppNavigator() {
 		this.widgets = {};
 
@@ -28,4 +28,5 @@ window.CanaryTides = window.CanaryTides || {};
 	
 	CanaryTides.Factory = CanaryTides.Factory || { };
 	CanaryTides.Factory.AppNavigator = createAppNavigator;
+
 }(window.CanaryTides));
