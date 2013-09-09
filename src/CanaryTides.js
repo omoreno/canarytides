@@ -17,9 +17,25 @@ window.CanaryTides = window.CanaryTides || {};
 		};
 
 	};
+
+	function ButtonWidget(elementId){
+		var self = this;
+		this.elementId = elementId;
+
+		var createDomElement = function () {
+			var element = $('<button>', { id: self.elementId });
+			$("body").append(element);
+		};
+
+		this.initialize = function(){
+			createDomElement();
+		};
+
+	};
 	
 	CanaryTides.Widgets = CanaryTides.Widgets || {};
 	CanaryTides.Widgets.TextBox = TextBoxWidget;
+	CanaryTides.Widgets.Button = ButtonWidget;
 
 	/******* Main App Navigator *******/
 	function AppNavigator() {
