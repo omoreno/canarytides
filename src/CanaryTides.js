@@ -12,6 +12,11 @@ window.CanaryTides = window.CanaryTides || {};
 		this.attachDateSelector = function(dateSelector){
 			this.widgets["dateSelector"] = dateSelector;
 		};
+
+		this.attachLocationSelector = function(locationSelector){
+			this.widgets["locationSelector"] = locationSelector;
+		};
+
 	}
 	
 	AppNavigator.prototype.constructor = AppNavigator;
