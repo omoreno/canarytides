@@ -4,18 +4,25 @@ window.CanaryTides = window.CanaryTides || {};
 	
 	/******* Widgets *******/
 	function Widget(elementId){
-		this.elementId= elementId;
+		this._nativeWidget;
+		this.elementId = elementId;
 
 		var attachToDOM = function(element){
 			$("body").append(element);
 		};
 		
 		this.initialize = function(){
-			var element = this.createElement();
-			attachToDOM(element);
+			this._nativeWidget = this.createElement();
+			this.subscribeEvents();
+			attachToDOM(this._nativeWidget);
 		};
 
-		this.createElement = function(){};//to be overrided
+		this.nativeWidget = function(){
+			return this._nativeWidget;
+		};
+
+		this.createElement = function(){}; //to be overrided
+		this.subscribeEvents = function(){}; //to be overrided
 	};
 
 	function TextBoxWidget(elementId){
@@ -30,10 +37,19 @@ window.CanaryTides = window.CanaryTides || {};
 
 	function ButtonWidget(elementId, caption){
 		Widget.call(this, elementId);
-		
+		var self = this;
 		this.createElement = function () {
 			return $('<button>', { id: this.elementId, text: caption });
 		};
+
+		this.subscribeEvents = function(){
+			this._nativeWidget.click(function(e){
+				self.onClick();
+				e.preventDefault();
+			});
+		};
+
+		this.onClick = function(){}; //to be handled
 	};
 	ButtonWidget.prototype = new Widget();
 	ButtonWidget.prototype.constructor = ButtonWidget;
