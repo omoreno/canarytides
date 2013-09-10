@@ -57,9 +57,20 @@ window.CanaryTides = window.CanaryTides || {};
 	ButtonWidget.prototype = new Widget();
 	ButtonWidget.prototype.constructor = ButtonWidget;
 
+	function DatePickerWidget(elementId){
+		Widget.call(this, elementId);
+		var self = this;
+		this.createElement = function () {
+			return $('<input>', { id: this.elementId }).datepicker();
+		};
+	};
+	DatePickerWidget.prototype = new Widget();
+	DatePickerWidget.prototype.constructor = DatePickerWidget;
+
 	CanaryTides.Widgets = CanaryTides.Widgets || {};
 	CanaryTides.Widgets.TextBox = TextBoxWidget;
 	CanaryTides.Widgets.Button = ButtonWidget;
+	CanaryTides.Widgets.DatePicker = DatePickerWidget;
 
 	/******* Main App Navigator *******/
 	function AppNavigator() {
