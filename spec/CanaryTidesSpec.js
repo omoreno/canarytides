@@ -34,6 +34,7 @@ describe("Widgets", function(){
 
   describe("base widget", function(){
     var widget;
+    
     beforeEach(function() {
       widget = new CanaryTides.Widgets.TextBox("textbox");
     });
@@ -48,7 +49,6 @@ describe("Widgets", function(){
   });
 
   describe("textbox", function(){
-
     var textBox;
 
     beforeEach(function() {
@@ -66,7 +66,6 @@ describe("Widgets", function(){
   });
 
   describe("button", function(){
-
     var button;
 
     beforeEach(function() {
@@ -98,6 +97,22 @@ describe("Widgets", function(){
       button.nativeWidget().click();
       
       expect(button.onClick).toHaveBeenCalled();
+    });
+  });
+
+  describe("datepicker", function(){
+    var datePicker;
+
+    beforeEach(function() {
+      datePicker = new CanaryTides.Widgets.DatePicker("datepicker");
+    });
+
+    it("draws on initialize", function(){ 
+      
+      datePicker.initialize();
+      
+      var element = $("body").find("#datepicker");
+      expect(element.length).toBe(1);
     });
   });
 });
