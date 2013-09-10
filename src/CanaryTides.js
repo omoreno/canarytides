@@ -73,6 +73,14 @@ window.CanaryTides = window.CanaryTides || {};
 		this.createElement = function () {
 			return $('<select>', { id: this.elementId });
 		};
+
+		this.addOptions = function(options){
+			for (var i = 0, len = options.length; i < len; i++){
+				var option = $("<option>");
+				option.val(options[i].value).text(options[i].text);
+				option.appendTo($(this._nativeWidget));
+			}
+		};
 	};
 	SingleChoiceSelectableWidget.prototype = new Widget();
 	SingleChoiceSelectableWidget.prototype.constructor = SingleChoiceSelectableWidget;
