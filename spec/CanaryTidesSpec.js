@@ -32,6 +32,21 @@ describe("Application Navigator", function() {
 
 describe("Widgets", function(){
 
+  describe("base widget", function(){
+    var widget;
+    beforeEach(function() {
+      widget = new CanaryTides.Widgets.TextBox("textbox");
+    });
+
+    it("does not create twice if exists", function(){ 
+      widget.initialize();
+      widget.initialize();
+      
+      var element = $("body").find("[id=textbox]");
+      expect(element.length).toBe(1);
+    });
+  });
+
   describe("textbox", function(){
 
     var textBox;
