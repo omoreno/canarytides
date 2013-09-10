@@ -67,10 +67,21 @@ window.CanaryTides = window.CanaryTides || {};
 	DatePickerWidget.prototype = new Widget();
 	DatePickerWidget.prototype.constructor = DatePickerWidget;
 
+	function SingleChoiceSelectableWidget(elementId){
+		Widget.call(this, elementId);
+		var self = this;
+		this.createElement = function () {
+			return $('<select>', { id: this.elementId });
+		};
+	};
+	SingleChoiceSelectableWidget.prototype = new Widget();
+	SingleChoiceSelectableWidget.prototype.constructor = SingleChoiceSelectableWidget;
+
 	CanaryTides.Widgets = CanaryTides.Widgets || {};
 	CanaryTides.Widgets.TextBox = TextBoxWidget;
 	CanaryTides.Widgets.Button = ButtonWidget;
 	CanaryTides.Widgets.DatePicker = DatePickerWidget;
+	CanaryTides.Widgets.SingleChoiceSelectable = SingleChoiceSelectableWidget;
 
 	/******* Main App Navigator *******/
 	function AppNavigator() {
