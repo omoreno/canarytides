@@ -115,4 +115,20 @@ describe("Widgets", function(){
       expect(element.length).toBe(1);
     });
   });
+
+  describe("single choice selectable", function(){
+    var singleChoiceSelectable;
+
+    beforeEach(function() {
+      singleChoiceSelectable = new CanaryTides.Widgets.SingleChoiceSelectable("selectable");
+    });
+
+    it("draws on initialize", function(){ 
+      
+      singleChoiceSelectable.initialize();
+      
+      var element = $("body").find("#selectable");
+      expect(element.length).toBe(1);
+    });
+  });
 });
