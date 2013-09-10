@@ -12,13 +12,16 @@ window.CanaryTides = window.CanaryTides || {};
 		};
 		
 		this.initialize = function(){
-			this._nativeWidget = this.createElement();
+			this._nativeWidget = $("#" + this.elementId);
+			if (this._nativeWidget.length == 0){
+				this._nativeWidget = this.createElement();
+				attachToDOM(this._nativeWidget);
+			}
 			this.subscribeEvents();
-			attachToDOM(this._nativeWidget);
 		};
 
 		this.nativeWidget = function(){
-			return this._nativeWidget;
+			return $("#" + this.elementId);
 		};
 
 		this.createElement = function(){}; //to be overrided
