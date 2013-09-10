@@ -67,13 +67,22 @@ describe("Widgets", function(){
     });
 
     it("sets caption on initialize", function(){ 
-      button = new CanaryTides.Widgets.Button("otherButton", "TestCaption")
+      button = new CanaryTides.Widgets.Button("otherButton", "TestCaption");
 
       button.initialize();
       
       var element = $("body").find("#otherButton");
       expect(element.length).toBe(1);
       expect(element.text()).toBe("TestCaption");
+    });
+
+    it("fires event on click", function(){ 
+      spyOn(button, "onClick");
+      button.initialize();
+
+      button.nativeWidget().click();
+      
+      expect(button.onClick).toHaveBeenCalled();
     });
   });
 });
