@@ -130,5 +130,19 @@ describe("Widgets", function(){
       var element = $("body").find("#selectable");
       expect(element.length).toBe(1);
     });
+
+    it("add options", function(){ 
+      singleChoiceSelectable.initialize();
+
+      singleChoiceSelectable.addOptions(
+              [{value: 1, text: "item1"}, {value: 2, text: "item2"}]);
+      
+      var options = $("#selectable option");
+      expect(options.length).toBe(2);
+      expect(options[0].value).toBe("1");
+      expect(options[0].text).toBe("item1");
+      expect(options[1].value).toBe("2");
+      expect(options[1].text).toBe("item2");
+    });
   });
 });
