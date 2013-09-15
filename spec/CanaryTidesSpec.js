@@ -114,6 +114,15 @@ describe("Widgets", function(){
       var element = $("body").find("#datepicker");
       expect(element.length).toBe(1);
     });
+
+    it("sets date", function(){
+      datePicker.initialize();
+
+      datePicker.setDate("02/05/2000");
+
+      var element = $("body").find("#datepicker");
+      expect(element.text()).toBe("02/05/2000");
+    });
   });
 
   describe("single choice selectable", function(){
@@ -156,6 +165,6 @@ describe("Widgets", function(){
       expect(selectedOption.value).toBe("2");
       expect(selectedOption.text).toBe("item2");
     });
-    
+
   });
 });
