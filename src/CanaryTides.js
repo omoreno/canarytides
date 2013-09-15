@@ -123,6 +123,11 @@ window.CanaryTides = window.CanaryTides || {};
 			this.widgets["locationSelector"] = locationSelector;
 		};
 
+		this.initialize = function(){
+			this.widgets.locationSelector.initialize();
+			this.widgets.dateSelector.initialize();
+			this.widgets.searchButton.initialize();
+		};
 	}
 	
 	AppNavigator.prototype.constructor = AppNavigator;
