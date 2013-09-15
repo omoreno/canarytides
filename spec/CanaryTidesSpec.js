@@ -28,6 +28,19 @@ describe("Application Navigator", function() {
  
     expect(navigator.widgets.locationSelector).toBe(locationSelectorWidget);
   });
+
+  it("intializes widgets on initialize", function(){
+    spyOn(navigator.widgets.locationSelector, "initialize");
+    spyOn(navigator.widgets.searchButton, "initialize");
+    spyOn(navigator.widgets.dateSelector, "initialize");
+
+    navigator.initialize();
+
+    expect(navigator.widgets.locationSelector.initialize).toHaveBeenCalled();
+    expect(navigator.widgets.searchButton.initialize).toHaveBeenCalled();
+    expect(navigator.widgets.dateSelector.initialize).toHaveBeenCalled();
+  });
+
 });
 
 describe("Widgets", function(){
