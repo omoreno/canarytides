@@ -81,6 +81,14 @@ window.CanaryTides = window.CanaryTides || {};
 				option.appendTo($(this._nativeWidget));
 			}
 		};
+
+		this.selectOptionByValue = function(value){
+			this._nativeWidget.val(value);
+		};
+
+		this.selectedOption = function(){
+			return this._nativeWidget.find('option:selected')[0];
+		};
 	};
 	SingleChoiceSelectableWidget.prototype = new Widget();
 	SingleChoiceSelectableWidget.prototype.constructor = SingleChoiceSelectableWidget;
