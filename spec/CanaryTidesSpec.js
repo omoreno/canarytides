@@ -123,6 +123,15 @@ describe("Widgets", function(){
       var element = $("body").find("#datepicker");
       expect(element.text()).toBe("02/05/2000");
     });
+
+    it("gets selected date", function(){
+      datePicker.initialize();
+
+      datePicker.setDate("02/05/2000");
+
+      var selectedDate = datePicker.selectedDate();
+      expect(selectedDate).toBe("02/05/2000");
+    });
   });
 
   describe("single choice selectable", function(){
