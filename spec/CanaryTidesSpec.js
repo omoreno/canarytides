@@ -144,5 +144,18 @@ describe("Widgets", function(){
       expect(options[1].value).toBe("2");
       expect(options[1].text).toBe("item2");
     });
+
+    it("get selected option", function(){ 
+      singleChoiceSelectable.initialize();
+      singleChoiceSelectable.addOptions(
+              [{value: 1, text: "item1"}, {value: 2, text: "item2"}]);
+      singleChoiceSelectable.selectOptionByValue(2);
+
+      var selectedOption = singleChoiceSelectable.selectedOption();
+
+      expect(selectedOption.value).toBe("2");
+      expect(selectedOption.text).toBe("item2");
+    });
+    
   });
 });
