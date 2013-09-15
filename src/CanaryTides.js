@@ -63,6 +63,10 @@ window.CanaryTides = window.CanaryTides || {};
 		this.createElement = function () {
 			return $('<input>', { id: this.elementId }).datepicker();
 		};
+
+		this.setDate = function(date){
+			this._nativeWidget.text(date);
+		};
 	};
 	DatePickerWidget.prototype = new Widget();
 	DatePickerWidget.prototype.constructor = DatePickerWidget;
@@ -120,8 +124,19 @@ window.CanaryTides = window.CanaryTides || {};
 	AppNavigator.prototype.constructor = AppNavigator;
 
 	/******* Factory *******/
+	var islands = [{value: 1, text: "Tenerife"}];
+	var createLocationSelectable = function(){
+		var selectable = new CanaryTides.Widgets.SingleChoiceSelectable("locationSelector");
+		selectable.addOptions(islands);
+		return selectable;
+	};
+
 	var createAppNavigator = function(){
-		return new AppNavigator();
+		var navigator = new AppNavigator();
+		navigator.attachLocationSelector(createLocationSelectable());
+		navigator.attachSearchButton(new CanaryTides.Widgets.Button("searchButton", "Search"));
+		navigator.attachDateSelector(new CanaryTides.Widgets.DatePicker("dateSelector"));
+		return navigator;
 	};
 	
 	CanaryTides.Factory = CanaryTides.Factory || { };
