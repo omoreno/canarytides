@@ -67,6 +67,10 @@ window.CanaryTides = window.CanaryTides || {};
 		this.setDate = function(date){
 			this._nativeWidget.text(date);
 		};
+
+		this.selectedDate = function(){
+			return this._nativeWidget.text();
+		};
 	};
 	DatePickerWidget.prototype = new Widget();
 	DatePickerWidget.prototype.constructor = DatePickerWidget;
