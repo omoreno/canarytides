@@ -59,8 +59,7 @@ describe("Application Navigator", function() {
 
 describe("Tides Finder", function(){
     
-    it("filter tides base on criteria", function(){
-      var fixtures = {
+    var fixtures = {
         "tenerife": {
             "01/01/2014": [ {time: "12:00", type: "low", heightInCentimeters: 50},
                             {time: "17:00", type: "high", heightInCentimeters: 150} ],
@@ -71,6 +70,8 @@ describe("Tides Finder", function(){
             "01/01/2014": [ {time: "19:00", type: "high", heightInCentimeters: 50} ]
         }
       };
+
+    it("filter tides based on criteria", function(){
       var finder = new CanaryTides.Services.TidesFinder();
       spyOn(finder.repository, "getAll").andReturn(fixtures); 
       var criteria = { date: "01/01/2014", location: {id: "tenerife", value: "Tenerife"} };
