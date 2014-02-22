@@ -109,7 +109,7 @@ window.CanaryTides = window.CanaryTides || {};
 	
 	/******* Service *******/
 	function TidesFinder(){
-		this.findTides = function(criteria){
+		this.find = function(criteria){
 
 		};
 	};
@@ -144,7 +144,7 @@ window.CanaryTides = window.CanaryTides || {};
 					date: self.widgets.dateSelector.selectedDate(),
 					location: self.widgets.locationSelector.selectedOption()
 				};
-				self.service.findTides(criteria);
+				self.tidesFinder.find(criteria);
 			};
 		};
 	}
@@ -164,7 +164,7 @@ window.CanaryTides = window.CanaryTides || {};
 		navigator.attachLocationSelector(createLocationSelectable());
 		navigator.attachSearchButton(new CanaryTides.Widgets.Button("searchButton", "Search"));
 		navigator.attachDateSelector(new CanaryTides.Widgets.DatePicker("dateSelector"));
-		navigator.service = new CanaryTides.Services.TidesFinder();
+		navigator.tidesFinder = new CanaryTides.Services.TidesFinder();
 		return navigator;
 	};
 	

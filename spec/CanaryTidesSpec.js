@@ -46,14 +46,14 @@ describe("Application Navigator", function() {
     navigator.widgets.dateSelector.setDate("01/02/2000");
     var options = [{value: 1, text: "Tenerife"}, {value: 2, text: "La Palma"}];
     navigator.widgets.locationSelector.addOptions(options);
-    spyOn(navigator.service,"findTides").andCallFake(function(criteria){
+    spyOn(navigator.tidesFinder,"find").andCallFake(function(criteria){
       expect(criteria.date).toBe("01/02/2000");
       expect(criteria.location.value).toBe("1");
     });
 
     navigator.widgets.searchButton.onClick();
  
-    expect(navigator.service.findTides).toHaveBeenCalled();
+    expect(navigator.tidesFinder.find).toHaveBeenCalled();
   });
 });
 
