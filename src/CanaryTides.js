@@ -110,6 +110,7 @@ window.CanaryTides = window.CanaryTides || {};
 	/******* Main App Navigator *******/
 	function AppNavigator() {
 		this.widgets = {};
+		var self = this;
 
 		this.attachSearchButton = function(searchButton){
 			this.widgets["searchButton"] = searchButton;
@@ -123,10 +124,24 @@ window.CanaryTides = window.CanaryTides || {};
 			this.widgets["locationSelector"] = locationSelector;
 		};
 
+		this.service = {
+			findTides: function(criteria){
+
+			}
+		};
+
 		this.initialize = function(){
 			this.widgets.locationSelector.initialize();
 			this.widgets.dateSelector.initialize();
 			this.widgets.searchButton.initialize();
+
+			this.widgets.searchButton.onClick = function(){
+				var criteria = {
+					date: self.widgets.dateSelector.selectedDate(),
+					location: self.widgets.locationSelector.selectedOption()
+				};
+				self.service.findTides(criteria);
+			};
 		};
 	}
 	
