@@ -235,15 +235,28 @@ describe("Widgets", function(){
     var table;
 
     beforeEach(function() {
-      singleChoiceSelectable = new CanaryTides.Widgets.Table("table");
+      var config = {elementid: "table",
+                    headerTexts: ["Time"]
+                  };
+      table = new CanaryTides.Widgets.Table(config);
     });
 
     it("draws on initialize", function(){ 
       
-      singleChoiceSelectable.initialize();
+      table.initialize();
       
       var element = $("body").find("#table");
       expect(element.length).toBe(1);
     });
+
+    it("draws header", function(){ 
+      table.initialize();
+
+      table.bind();
+
+      var element = $("body").find("th");
+      expect(element[0].innerHTML).toContain("Time");
+    });
+
   });
 });
