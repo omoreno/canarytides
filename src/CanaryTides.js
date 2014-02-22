@@ -105,6 +105,7 @@ window.CanaryTides = window.CanaryTides || {};
 		var self = this;
 		this.elementId = config.elementId;
 		this.headerTexts = config.headerTexts;
+		this.sourceFields = config.sourceFields;
 		Widget.call(this, this.elementId);
 		
 		this.createElement = function () {
@@ -121,6 +122,14 @@ window.CanaryTides = window.CanaryTides || {};
 
 		this.bind = function(items){
 			drawHeader();
+			for (var i = 0, itemsLength = items.length; i < itemsLength; i++){
+				var row = "<tr>";
+				for (var j = 0, fieldsLength = this.sourceFields.length; j < fieldsLength; j++){
+					row += "<td>" + items[i][this.sourceFields[j]] + "</td>";
+				}
+				row += "</tr>";
+   				this._nativeWidget.append(row);
+			}
 		};
 	};
 	TableWidget.prototype = new Widget();
