@@ -230,4 +230,20 @@ describe("Widgets", function(){
     });
 
   });
+
+  describe("table", function(){
+    var table;
+
+    beforeEach(function() {
+      singleChoiceSelectable = new CanaryTides.Widgets.Table("table");
+    });
+
+    it("draws on initialize", function(){ 
+      
+      singleChoiceSelectable.initialize();
+      
+      var element = $("body").find("#table");
+      expect(element.length).toBe(1);
+    });
+  });
 });
