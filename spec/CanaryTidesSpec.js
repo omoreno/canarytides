@@ -235,8 +235,9 @@ describe("Widgets", function(){
     var table;
 
     beforeEach(function() {
-      var config = {elementid: "table",
-                    headerTexts: ["Time"]
+      var config = {elementId: "table",
+                    headerTexts: ["Time"],
+                    sourceFields: ["time"]
                   };
       table = new CanaryTides.Widgets.Table(config);
     });
@@ -252,10 +253,22 @@ describe("Widgets", function(){
     it("draws header", function(){ 
       table.initialize();
 
-      table.bind();
+      table.bind([]);
 
-      var element = $("body").find("th");
+      var element = $("#table th");
+      console.log(element);
+      expect(element.length).toBe(1);
       expect(element[0].innerHTML).toContain("Time");
+    });
+
+    it("draws content", function(){ 
+      table.initialize();
+
+      table.bind([{"time": "01/01/2014"}]);
+
+      var element = $("#table td");
+      expect(element.length).toBe(1);
+      expect(element[0].innerHTML).toContain("01/01/2014");
     });
 
   });
