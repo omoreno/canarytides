@@ -107,14 +107,16 @@ window.CanaryTides = window.CanaryTides || {};
 	CanaryTides.Widgets.DatePicker = DatePickerWidget;
 	CanaryTides.Widgets.SingleChoiceSelectable = SingleChoiceSelectableWidget;
 	
+	/******* Repository *******/
+	function TidesRepository() {
+		this.getAll = function(){
+
+		}
+	};
+
 	/******* Service *******/
-	function TidesFinder(){
-
-		this.repository = {
-			getAll: function(){
-
-			}
-		};
+	function TidesFinder(tidesRepository){
+		this.repository = tidesRepository;
 
 		this.find = function(criteria){
 			return this.repository
@@ -172,11 +174,16 @@ window.CanaryTides = window.CanaryTides || {};
 		navigator.attachLocationSelector(createLocationSelectable());
 		navigator.attachSearchButton(new CanaryTides.Widgets.Button("searchButton", "Search"));
 		navigator.attachDateSelector(new CanaryTides.Widgets.DatePicker("dateSelector"));
-		navigator.tidesFinder = new CanaryTides.Services.TidesFinder();
+		navigator.tidesFinder = createTidesFinder();
 		return navigator;
+	};
+
+	var createTidesFinder = function(){
+		return new CanaryTides.Services.TidesFinder(new TidesRepository());
 	};
 	
 	CanaryTides.Factory = CanaryTides.Factory || { };
 	CanaryTides.Factory.AppNavigator = createAppNavigator;
+	CanaryTides.Factory.TidesFinder = createTidesFinder;
 
 }(window.CanaryTides));

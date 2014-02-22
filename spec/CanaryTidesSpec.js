@@ -72,7 +72,7 @@ describe("Tides Finder", function(){
       };
 
     it("filter tides based on criteria", function(){
-      var finder = new CanaryTides.Services.TidesFinder();
+      var finder = new CanaryTides.Factory.TidesFinder();
       spyOn(finder.repository, "getAll").andReturn(fixtures); 
       var criteria = { date: "01/01/2014", location: {id: "tenerife", value: "Tenerife"} };
 
