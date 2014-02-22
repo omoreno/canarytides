@@ -107,6 +107,24 @@ window.CanaryTides = window.CanaryTides || {};
 	CanaryTides.Widgets.DatePicker = DatePickerWidget;
 	CanaryTides.Widgets.SingleChoiceSelectable = SingleChoiceSelectableWidget;
 	
+	function QueryableObject(query){
+		var _query = query;
+
+		this.filterByLocation = function(locationId){
+			_query = query[locationId];
+			return this;
+		};
+
+		this.filterByDate = function(date){
+			_query = _query[date];
+			return this;
+		};
+
+		this.toArray = function(){
+			return _query;
+		};
+	};
+
 	/******* Repository *******/
 	function TidesRepository() {
 		this.getAll = function(){
@@ -119,8 +137,10 @@ window.CanaryTides = window.CanaryTides || {};
 		this.repository = tidesRepository;
 
 		this.find = function(criteria){
-			return this.repository
-						.getAll()[criteria.location.id][criteria.date];
+			return new QueryableObject(this.repository.getAll())
+						.filterByLocation(criteria.location.id)
+						.filterByDate(criteria.date)
+						.toArray();
 		};
 	};
 
