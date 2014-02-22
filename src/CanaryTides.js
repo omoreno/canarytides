@@ -101,11 +101,23 @@ window.CanaryTides = window.CanaryTides || {};
 	SingleChoiceSelectableWidget.prototype = new Widget();
 	SingleChoiceSelectableWidget.prototype.constructor = SingleChoiceSelectableWidget;
 
+	function TableWidget(elementId){
+		Widget.call(this, elementId);
+		
+		this.createElement = function () {
+			return $('<table>', { id: this.elementId });
+		};
+	};
+	TableWidget.prototype = new Widget();
+	TableWidget.prototype.constructor = TableWidget;
+
 	CanaryTides.Widgets = CanaryTides.Widgets || {};
 	CanaryTides.Widgets.TextBox = TextBoxWidget;
 	CanaryTides.Widgets.Button = ButtonWidget;
 	CanaryTides.Widgets.DatePicker = DatePickerWidget;
 	CanaryTides.Widgets.SingleChoiceSelectable = SingleChoiceSelectableWidget;
+	CanaryTides.Widgets.Table = TableWidget;
+
 	
 	function QueryableObject(query){
 		var _query = query;
