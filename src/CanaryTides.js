@@ -120,7 +120,12 @@ window.CanaryTides = window.CanaryTides || {};
 			self._nativeWidget.append(header);
 		};
 
+		var clear = function(){
+			self._nativeWidget.empty();
+		};
+
 		this.bind = function(items){
+			clear();
 			drawHeader();
 			for (var i = 0, itemsLength = items.length; i < itemsLength; i++){
 				var row = "<tr>";
