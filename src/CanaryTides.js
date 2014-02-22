@@ -106,6 +106,16 @@ window.CanaryTides = window.CanaryTides || {};
 	CanaryTides.Widgets.Button = ButtonWidget;
 	CanaryTides.Widgets.DatePicker = DatePickerWidget;
 	CanaryTides.Widgets.SingleChoiceSelectable = SingleChoiceSelectableWidget;
+	
+	/******* Service *******/
+	function TidesFinder(){
+		this.findTides = function(criteria){
+
+		};
+	};
+
+	CanaryTides.Services = CanaryTides.Services || { };
+	CanaryTides.Services.TidesFinder = TidesFinder;
 
 	/******* Main App Navigator *******/
 	function AppNavigator() {
@@ -122,12 +132,6 @@ window.CanaryTides = window.CanaryTides || {};
 
 		this.attachLocationSelector = function(locationSelector){
 			this.widgets["locationSelector"] = locationSelector;
-		};
-
-		this.service = {
-			findTides: function(criteria){
-
-			}
 		};
 
 		this.initialize = function(){
@@ -160,6 +164,7 @@ window.CanaryTides = window.CanaryTides || {};
 		navigator.attachLocationSelector(createLocationSelectable());
 		navigator.attachSearchButton(new CanaryTides.Widgets.Button("searchButton", "Search"));
 		navigator.attachDateSelector(new CanaryTides.Widgets.DatePicker("dateSelector"));
+		navigator.service = new CanaryTides.Services.TidesFinder();
 		return navigator;
 	};
 	
