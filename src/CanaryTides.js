@@ -101,11 +101,26 @@ window.CanaryTides = window.CanaryTides || {};
 	SingleChoiceSelectableWidget.prototype = new Widget();
 	SingleChoiceSelectableWidget.prototype.constructor = SingleChoiceSelectableWidget;
 
-	function TableWidget(elementId){
-		Widget.call(this, elementId);
+	function TableWidget(config){
+		var self = this;
+		this.elementId = config.elementId;
+		this.headerTexts = config.headerTexts;
+		Widget.call(this, this.elementId);
 		
 		this.createElement = function () {
 			return $('<table>', { id: this.elementId });
+		};
+
+		var drawHeader = function(){
+			var header = "";
+			for (var i = 0, len = self.headerTexts.length; i < len; i++){
+				header += "<th>" + self.headerTexts[i] + "</th>";
+			}
+			self._nativeWidget.append(header);
+		};
+
+		this.bind = function(items){
+			drawHeader();
 		};
 	};
 	TableWidget.prototype = new Widget();
