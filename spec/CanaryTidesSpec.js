@@ -271,5 +271,17 @@ describe("Widgets", function(){
       expect(element[0].innerHTML).toContain("01/01/2014");
     });
 
+    it("clears current content before bind new", function(){ 
+      table.initialize();
+
+      table.bind([{"time": "01/01/2014"}]);
+      table.bind([{"time": "02/01/2014"}]);
+
+      var element = $("#table td");
+      expect(element.length).toBe(1);
+      expect(element[0].innerHTML).toContain("02/01/2014");
+      expect(element[0].innerHTML).not.toContain("01/01/2014");
+    });
+
   });
 });
