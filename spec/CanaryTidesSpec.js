@@ -57,6 +57,32 @@ describe("Application Navigator", function() {
   });
 });
 
+describe("Tides Finder", function(){
+    
+    it("filter tides base on criteria", function(){
+      var fixtures = {
+        "tenerife": {
+            "01/01/2014": [ {time: "12:00", type: "low", heightInCentimeters: 50},
+                            {time: "17:00", type: "high", heightInCentimeters: 150} ],
+            
+            "02/01/2014": [ {time: "11:00", type: "high", heightInCentimeters: 50} ]
+        },
+        "la-palma": {
+            "01/01/2014": [ {time: "19:00", type: "high", heightInCentimeters: 50} ]
+        }
+      };
+      var finder = new CanaryTides.Services.TidesFinder();
+      spyOn(finder.repository, "getAll").andReturn(fixtures); 
+      var criteria = { date: "01/01/2014", location: {id: "tenerife", value: "Tenerife"} };
+
+      var tides = finder.find(criteria);
+
+      expect(tides.length).toBe(2);
+      expect(tides[0].type).toBe("low");
+      expect(tides[0].time).toBe("12:00");
+    });
+});
+
 describe("Widgets", function(){
 
   describe("base widget", function(){
