@@ -109,8 +109,16 @@ window.CanaryTides = window.CanaryTides || {};
 	
 	/******* Service *******/
 	function TidesFinder(){
-		this.find = function(criteria){
 
+		this.repository = {
+			getAll: function(){
+
+			}
+		};
+
+		this.find = function(criteria){
+			return this.repository
+						.getAll()[criteria.location.id][criteria.date];
 		};
 	};
 
