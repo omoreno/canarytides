@@ -217,16 +217,16 @@ window.CanaryTides = window.CanaryTides || {};
 				};
 				self.tidesFinder.find(criteria);
 			};
+			var locations = [{value: "tenerife", text: "Tenerife"}];
+			this.widgets.locationSelector.addOptions(locations);
 		};
 	}
 	
 	AppNavigator.prototype.constructor = AppNavigator;
 
 	/******* Factory *******/
-	var islands = [{value: 1, text: "Tenerife"}];
 	var createLocationSelectable = function(){
 		var selectable = new CanaryTides.Widgets.SingleChoiceSelectable("locationSelector");
-		selectable.addOptions(islands);
 		return selectable;
 	};
 
