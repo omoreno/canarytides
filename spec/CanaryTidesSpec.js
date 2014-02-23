@@ -46,6 +46,7 @@ describe("Application Navigator", function() {
     navigator.widgets.dateSelector.setDate("01/02/2000");
     var options = [{value: 1, text: "Tenerife"}, {value: 2, text: "La Palma"}];
     navigator.widgets.locationSelector.addOptions(options);
+    navigator.widgets.locationSelector.selectOptionByValue(1);
     spyOn(navigator.tidesFinder,"find").andCallFake(function(criteria){
       expect(criteria.date).toBe("01/02/2000");
       expect(criteria.location.value).toBe("1");
@@ -54,6 +55,14 @@ describe("Application Navigator", function() {
     navigator.widgets.searchButton.onClick();
  
     expect(navigator.tidesFinder.find).toHaveBeenCalled();
+  });
+
+  it("add location options on initialize", function() {
+    spyOn(navigator.widgets.locationSelector, "addOptions");
+
+    navigator.initialize();
+
+    expect(navigator.widgets.locationSelector.addOptions).toHaveBeenCalled();
   });
 });
 
@@ -256,7 +265,6 @@ describe("Widgets", function(){
       table.bind([]);
 
       var element = $("#table th");
-      console.log(element);
       expect(element.length).toBe(1);
       expect(element[0].innerHTML).toContain("Time");
     });
