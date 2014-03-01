@@ -18,6 +18,7 @@ window.CanaryTides = window.CanaryTides || {};
 				attachToDOM(this._nativeWidget);
 			}
 			this.subscribeEvents();
+			this.postInitialize();
 		};
 
 		this.nativeWidget = function(){
@@ -26,6 +27,7 @@ window.CanaryTides = window.CanaryTides || {};
 
 		this.createElement = function(){}; //to be overrided
 		this.subscribeEvents = function(){}; //to be overrided
+		this.postInitialize = function(){}; //to be overrided
 	};
 
 	function TextBoxWidget(elementId){
@@ -152,7 +154,7 @@ window.CanaryTides = window.CanaryTides || {};
 		var _query = query;
 
 		this.filterByLocation = function(locationId){
-			_query = query[locationId];
+			_query = _query[locationId];
 			return this;
 		};
 
@@ -169,7 +171,6 @@ window.CanaryTides = window.CanaryTides || {};
 	/******* Repository *******/
 	function TidesRepository() {
 		this.getAll = function(){
-
 		}
 	};
 
@@ -179,7 +180,7 @@ window.CanaryTides = window.CanaryTides || {};
 
 		this.find = function(criteria){
 			return new QueryableObject(this.repository.getAll())
-						.filterByLocation(criteria.location.id)
+						.filterByLocation(criteria.location.value)
 						.filterByDate(criteria.date)
 						.toArray();
 		};
