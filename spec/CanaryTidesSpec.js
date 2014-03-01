@@ -109,6 +109,23 @@ describe("Widgets", function(){
       var element = $("body").find("[id=textbox]");
       expect(element.length).toBe(1);
     });
+
+    it("subscribe events after initialize", function(){ 
+      spyOn(widget, "subscribeEvents");
+
+      widget.initialize();
+      
+      expect(widget.subscribeEvents).toHaveBeenCalled();
+    });
+
+    it("delegates on custom initialization after initialize", function(){ 
+      spyOn(widget, "postInitialize");
+
+      widget.initialize();
+      
+      expect(widget.postInitialize).toHaveBeenCalled();
+    });
+
   });
 
   describe("textbox", function(){
