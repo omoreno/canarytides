@@ -67,7 +67,7 @@ window.CanaryTides = window.CanaryTides || {};
 		};
 
 		this.setDate = function(date){
-			this._nativeWidget.text(date);
+			this._nativeWidget.datepicker('setValue', date);
 		};
 
 		this.selectedDate = function(){
