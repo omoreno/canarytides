@@ -59,11 +59,23 @@ window.CanaryTides = window.CanaryTides || {};
 	ButtonWidget.prototype = new Widget();
 	ButtonWidget.prototype.constructor = ButtonWidget;
 
-	function DatePickerWidget(elementId){
-		Widget.call(this, elementId);
+	function DatePickerWidget(config){
+		Widget.call(this, config.elementId);
+		var config = config;
 		var self = this;
+		var now = new Date();
+		var today = now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
+		var defaultDate = config.defaultDate || today;
+		var dateFormat = config.dateFormat || 'dd/mm/yyyy';
+
 		this.createElement = function () {
 			return $('<input>', { id: this.elementId }).datepicker();
+		};
+
+		this.postInitialize = function(){
+			this._nativeWidget
+					.datepicker({format: dateFormat})
+					.datepicker('setValue', defaultDate);
 		};
 
 		this.setDate = function(date){
@@ -272,13 +284,17 @@ window.CanaryTides = window.CanaryTides || {};
 		];
 		var tableConfig = {
 			elementId: "results",
-			headerTexts: ["Hora", "Alta / Baja", "Altura"],
+			headerTexts: ["Hora", "Alta / Baja", "Altura (cm)"],
 			sourceFields: ["time", "type", "heightInCentimeters"]
+		};
+		var datePickerConfig = {
+			elementId: "dateSelector",
+			dateFormat: "dd/mm/yyyy"
 		};
 		navigator.DTOConverter = new DTOConverter();
 		navigator.attachLocationSelector(createLocationSelectable());
 		navigator.attachSearchButton(new CanaryTides.Widgets.Button("searchButton", "Search"));
-		navigator.attachDateSelector(new CanaryTides.Widgets.DatePicker("dateSelector"));
+		navigator.attachDateSelector(new CanaryTides.Widgets.DatePicker(datePickerConfig));
 		navigator.attachResultsWidget(new CanaryTides.Widgets.Table(tableConfig));
 		navigator.tidesFinder = createTidesFinder();
 		return navigator;

@@ -199,7 +199,7 @@ describe("Widgets", function(){
     var datePicker;
 
     beforeEach(function() {
-      datePicker = new CanaryTides.Widgets.DatePicker("datepicker");
+      datePicker = new CanaryTides.Widgets.DatePicker({elementId: "datepicker"});
     });
 
     it("draws on initialize", function(){ 
