@@ -191,6 +191,19 @@ window.CanaryTides = window.CanaryTides || {};
 	CanaryTides.Services = CanaryTides.Services || { };
 	CanaryTides.Services.TidesFinder = TidesFinder;
 
+	/******* DTOs *******/
+	function TideDTO(tide) {
+		var humanReadableType = function(type){
+			if (type == 'high')
+				return "Alta";
+			return "Baja";
+		};
+
+		this.time = tide.time;
+		this.type = humanReadableType(tide.type);
+		this.heightInCentimeters = tide.heightInCentimeters;
+	};
+
 	/******* Main App Navigator *******/
 	function AppNavigator() {
 		this.widgets = {};
@@ -212,22 +225,12 @@ window.CanaryTides = window.CanaryTides || {};
 			this.widgets["results"] = resultsWidget;
 		};
 
-		var humanReadableType = function(type){
-			if (type == 'high')
-				return "Alta";
-			return "Baja";
-		};
 
-		var aa = function(tides){
-			var tidesDTO = [];
-			for (var i = 0, len = tides.length; i < len; i++){
-				tidesDTO.push({
-					"time": tides[i].time,
-					"type": humanReadableType(tides[i].type),
-					heightInCentimeters: tides[i].heightInCentimeters
-				});
-			};
-			return tidesDTO;
+		var convertToDtos = function(tides){
+			var tidesDTOs = [];
+			for (var i = 0, len = tides.length; i < len; i++)
+				tidesDTOs.push(new TideDTO(tides[i]));
+			return tidesDTOs;
 		};
 
 		this.initialize = function(){
@@ -242,8 +245,8 @@ window.CanaryTides = window.CanaryTides || {};
 					location: self.widgets.locationSelector.selectedOption()
 				};
 				var tides = self.tidesFinder.find(criteria);
-				var tidesDTO = aa(tides);
-				self.widgets.results.bind(tidesDTO);
+				var dtos = convertToDtos(tides);
+				self.widgets.results.bind(dtos);
 			};
 
 			this.widgets.locationSelector.addOptions(this.locations);
