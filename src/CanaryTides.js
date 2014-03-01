@@ -139,6 +139,7 @@ window.CanaryTides = window.CanaryTides || {};
 			}
 		};
 	};
+
 	TableWidget.prototype = new Widget();
 	TableWidget.prototype.constructor = TableWidget;
 
@@ -207,18 +208,44 @@ window.CanaryTides = window.CanaryTides || {};
 			this.widgets["locationSelector"] = locationSelector;
 		};
 
+		this.attachResultsWidget = function(resultsWidget){
+			this.widgets["results"] = resultsWidget;
+		};
+
+		var humanReadableType = function(type){
+			if (type == 'high')
+				return "Alta";
+			return "Baja";
+		};
+
+		var aa = function(tides){
+			var tidesDTO = [];
+			for (var i = 0, len = tides.length; i < len; i++){
+				tidesDTO.push({
+					"time": tides[i].time,
+					"type": humanReadableType(tides[i].type),
+					heightInCentimeters: tides[i].heightInCentimeters
+				});
+			};
+			return tidesDTO;
+		};
+
 		this.initialize = function(){
 			this.widgets.locationSelector.initialize();
 			this.widgets.dateSelector.initialize();
 			this.widgets.searchButton.initialize();
+			this.widgets.results.initialize();
 
 			this.widgets.searchButton.onClick = function(){
 				var criteria = {
 					date: self.widgets.dateSelector.selectedDate(),
 					location: self.widgets.locationSelector.selectedOption()
 				};
-				self.tidesFinder.find(criteria);
+				var tides = self.tidesFinder.find(criteria);
+				var tidesDTO = aa(tides);
+				self.widgets.results.bind(tidesDTO);
 			};
+
 			this.widgets.locationSelector.addOptions(this.locations);
 		};
 	}
@@ -239,9 +266,15 @@ window.CanaryTides = window.CanaryTides || {};
 			{value: "gran-canaria", text: "Gran Canaria"},
 			{value: "lanzarote", text: "Lanzarote"}
 		];
+		var tableConfig = {
+			elementId: "results",
+			headerTexts: ["Hora", "Alta / Baja", "Altura"],
+			sourceFields: ["time", "type", "heightInCentimeters"]
+		};
 		navigator.attachLocationSelector(createLocationSelectable());
 		navigator.attachSearchButton(new CanaryTides.Widgets.Button("searchButton", "Search"));
 		navigator.attachDateSelector(new CanaryTides.Widgets.DatePicker("dateSelector"));
+		navigator.attachResultsWidget(new CanaryTides.Widgets.Table(tableConfig));
 		navigator.tidesFinder = createTidesFinder();
 		return navigator;
 	};
