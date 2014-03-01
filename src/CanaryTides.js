@@ -73,9 +73,13 @@ window.CanaryTides = window.CanaryTides || {};
 		};
 
 		this.postInitialize = function(){
-			this._nativeWidget
-					.datepicker({format: dateFormat})
-					.datepicker('setValue', defaultDate);
+			var element = this._nativeWidget
+				.datepicker({format: dateFormat})
+				.datepicker('setValue', defaultDate)
+				.on('changeDate', function(ev){
+					element.hide();
+				})
+				.data('datepicker');
 		};
 
 		this.setDate = function(date){
@@ -162,7 +166,6 @@ window.CanaryTides = window.CanaryTides || {};
 	CanaryTides.Widgets.SingleChoiceSelectable = SingleChoiceSelectableWidget;
 	CanaryTides.Widgets.Table = TableWidget;
 
-	
 	function QueryableObject(query){
 		var _query = query;
 
@@ -207,8 +210,8 @@ window.CanaryTides = window.CanaryTides || {};
 	function TideDTO(tide) {
 		var humanReadableType = function(type){
 			if (type == 'high')
-				return "Alta";
-			return "Baja";
+				return CanaryTides.i18n._("Pleamar");
+			return CanaryTides.i18n._("Bajamar");
 		};
 
 		this.time = tide.time;
@@ -224,6 +227,13 @@ window.CanaryTides = window.CanaryTides || {};
 			return tidesDTOs;
 		};
 	};
+
+	var i18n = {
+		_: function(str){
+			return str;
+		}
+	};
+	CanaryTides.i18n = i18n;
 
 	/******* Main App Navigator *******/
 	function AppNavigator() {
@@ -284,7 +294,7 @@ window.CanaryTides = window.CanaryTides || {};
 		];
 		var tableConfig = {
 			elementId: "results",
-			headerTexts: ["Hora", "Alta / Baja", "Altura (cm)"],
+			headerTexts: [CanaryTides.i18n._("Hora"), CanaryTides.i18n._("Tipo"), CanaryTides.i18n._("Altura (cm)")],
 			sourceFields: ["time", "type", "heightInCentimeters"]
 		};
 		var datePickerConfig = {
