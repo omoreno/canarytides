@@ -171,6 +171,7 @@ window.CanaryTides = window.CanaryTides || {};
 	/******* Repository *******/
 	function TidesRepository() {
 		this.getAll = function(){
+			return CanaryTides.database;
 		}
 	};
 
