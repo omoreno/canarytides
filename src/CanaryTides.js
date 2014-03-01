@@ -71,7 +71,7 @@ window.CanaryTides = window.CanaryTides || {};
 		};
 
 		this.selectedDate = function(){
-			return this._nativeWidget.text();
+			return this._nativeWidget.val();
 		};
 	};
 	DatePickerWidget.prototype = new Widget();
