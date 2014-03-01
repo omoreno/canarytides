@@ -204,6 +204,15 @@ window.CanaryTides = window.CanaryTides || {};
 		this.heightInCentimeters = tide.heightInCentimeters;
 	};
 
+	function DTOConverter(){
+		this.convert = function(tides){
+			var tidesDTOs = [];
+			for (var i = 0, len = tides.length; i < len; i++)
+				tidesDTOs.push(new TideDTO(tides[i]));
+			return tidesDTOs;
+		};
+	};
+
 	/******* Main App Navigator *******/
 	function AppNavigator() {
 		this.widgets = {};
@@ -225,14 +234,6 @@ window.CanaryTides = window.CanaryTides || {};
 			this.widgets["results"] = resultsWidget;
 		};
 
-
-		var convertToDtos = function(tides){
-			var tidesDTOs = [];
-			for (var i = 0, len = tides.length; i < len; i++)
-				tidesDTOs.push(new TideDTO(tides[i]));
-			return tidesDTOs;
-		};
-
 		this.initialize = function(){
 			this.widgets.locationSelector.initialize();
 			this.widgets.dateSelector.initialize();
@@ -245,7 +246,7 @@ window.CanaryTides = window.CanaryTides || {};
 					location: self.widgets.locationSelector.selectedOption()
 				};
 				var tides = self.tidesFinder.find(criteria);
-				var dtos = convertToDtos(tides);
+				var dtos = self.DTOConverter.convert(tides);
 				self.widgets.results.bind(dtos);
 			};
 
@@ -274,6 +275,7 @@ window.CanaryTides = window.CanaryTides || {};
 			headerTexts: ["Hora", "Alta / Baja", "Altura"],
 			sourceFields: ["time", "type", "heightInCentimeters"]
 		};
+		navigator.DTOConverter = new DTOConverter();
 		navigator.attachLocationSelector(createLocationSelectable());
 		navigator.attachSearchButton(new CanaryTides.Widgets.Button("searchButton", "Search"));
 		navigator.attachDateSelector(new CanaryTides.Widgets.DatePicker("dateSelector"));

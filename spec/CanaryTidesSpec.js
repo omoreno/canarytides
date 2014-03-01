@@ -47,6 +47,7 @@ describe("Application Navigator", function() {
     var options = [{value: 1, text: "Tenerife"}, {value: 2, text: "La Palma"}];
     navigator.widgets.locationSelector.addOptions(options);
     navigator.widgets.locationSelector.selectOptionByValue(1);
+    spyOn(navigator.DTOConverter, "convert").andReturn([]);
     spyOn(navigator.tidesFinder,"find").andCallFake(function(criteria){
       expect(criteria.date).toBe("01/02/2000");
       expect(criteria.location.value).toBe("1");
