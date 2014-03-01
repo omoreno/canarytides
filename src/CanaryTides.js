@@ -218,8 +218,7 @@ window.CanaryTides = window.CanaryTides || {};
 				};
 				self.tidesFinder.find(criteria);
 			};
-			var locations = [{value: "tenerife", text: "Tenerife"}];
-			this.widgets.locationSelector.addOptions(locations);
+			this.widgets.locationSelector.addOptions(this.locations);
 		};
 	}
 	
@@ -233,6 +232,12 @@ window.CanaryTides = window.CanaryTides || {};
 
 	var createAppNavigator = function(){
 		var navigator = new AppNavigator();
+		navigator.locations = [
+			{value: "la-palma", text: "La Palma"},
+			{value: "tenerife", text: "Tenerife"},
+			{value: "gran-canaria", text: "Gran Canaria"},
+			{value: "lanzarote", text: "Lanzarote"}
+		];
 		navigator.attachLocationSelector(createLocationSelectable());
 		navigator.attachSearchButton(new CanaryTides.Widgets.Button("searchButton", "Search"));
 		navigator.attachDateSelector(new CanaryTides.Widgets.DatePicker("dateSelector"));
