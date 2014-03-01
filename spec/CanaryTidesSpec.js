@@ -57,6 +57,20 @@ describe("Application Navigator", function() {
     expect(navigator.tidesFinder.find).toHaveBeenCalled();
   });
 
+  it("add search results", function() {
+    navigator.initialize();
+    var fixtures = [{"time":"00:43", "type":"high", "heightInCentimeters":"248"}];
+    spyOn(navigator.tidesFinder, "find").andReturn(fixtures);
+    spyOn(navigator.widgets.results, "bind").andCallFake(function(results){
+      expect(results.length).toBe(1);
+      expect(results[0].type).toBe("Alta");
+    });
+
+    navigator.widgets.searchButton.onClick();
+ 
+    expect(navigator.widgets.results.bind).toHaveBeenCalled();
+  });
+
   it("add location options on initialize", function() {
     spyOn(navigator.widgets.locationSelector, "addOptions");
 
