@@ -25,6 +25,14 @@ window.CanaryTides = window.CanaryTides || {};
 			return $("#" + this.elementId);
 		};
 
+		this.hide = function() {
+			this._nativeWidget.hide();
+		};
+
+		this.show = function() {
+			this._nativeWidget.show();
+		};
+
 		this.createElement = function(){}; //to be overrided
 		this.subscribeEvents = function(){}; //to be overrided
 		this.postInitialize = function(){}; //to be overrided
@@ -159,12 +167,28 @@ window.CanaryTides = window.CanaryTides || {};
 	TableWidget.prototype = new Widget();
 	TableWidget.prototype.constructor = TableWidget;
 
+	function LabelWidget(elementId){
+		Widget.call(this, elementId);
+		
+		this.createElement = function () {
+			return $('<span>', { id: this.elementId });
+		};
+
+		this.showMessage = function(message) {
+			this.show();
+			this._nativeWidget.text(message);
+		};
+	};
+	LabelWidget.prototype = new Widget();
+	LabelWidget.prototype.constructor = LabelWidget;
+
 	CanaryTides.Widgets = CanaryTides.Widgets || {};
 	CanaryTides.Widgets.TextBox = TextBoxWidget;
 	CanaryTides.Widgets.Button = ButtonWidget;
 	CanaryTides.Widgets.DatePicker = DatePickerWidget;
 	CanaryTides.Widgets.SingleChoiceSelectable = SingleChoiceSelectableWidget;
 	CanaryTides.Widgets.Table = TableWidget;
+	CanaryTides.Widgets.Label = LabelWidget;
 
 	function QueryableObject(query){
 		var _query = query;
@@ -180,7 +204,7 @@ window.CanaryTides = window.CanaryTides || {};
 		};
 
 		this.toArray = function(){
-			return _query;
+			return _query || [];
 		};
 	};
 
@@ -256,22 +280,33 @@ window.CanaryTides = window.CanaryTides || {};
 			this.widgets["results"] = resultsWidget;
 		};
 
+		this.attachMessageWidget = function(labelWidget){
+			this.widgets["message"] = labelWidget;
+		};
+
 		this.initialize = function(){
 			this.widgets.locationSelector.initialize();
 			this.widgets.dateSelector.initialize();
 			this.widgets.searchButton.initialize();
 			this.widgets.results.initialize();
+			this.widgets.message.initialize();
 
 			this.widgets.searchButton.onClick = function(){
+				self.widgets.results.hide();
+				self.widgets.message.hide();
 				var criteria = {
 					date: self.widgets.dateSelector.selectedDate(),
 					location: self.widgets.locationSelector.selectedOption()
 				};
 				var tides = self.tidesFinder.find(criteria);
 				var dtos = self.DTOConverter.convert(tides);
-				self.widgets.results.bind(dtos);
+				if (dtos && dtos.length > 0) {
+					self.widgets.results.show();
+					self.widgets.results.bind(dtos);
+				} else {
+					self.widgets.message.showMessage(CanaryTides.i18n._("No se han encontrado resultados."));
+				}
 			};
-
 			this.widgets.locationSelector.addOptions(this.locations);
 		};
 	}
@@ -306,6 +341,7 @@ window.CanaryTides = window.CanaryTides || {};
 		navigator.attachSearchButton(new CanaryTides.Widgets.Button("searchButton", "Search"));
 		navigator.attachDateSelector(new CanaryTides.Widgets.DatePicker(datePickerConfig));
 		navigator.attachResultsWidget(new CanaryTides.Widgets.Table(tableConfig));
+		navigator.attachMessageWidget(new CanaryTides.Widgets.Label("message"));
 		navigator.tidesFinder = createTidesFinder();
 		return navigator;
 	};

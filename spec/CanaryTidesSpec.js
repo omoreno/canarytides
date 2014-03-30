@@ -62,14 +62,29 @@ describe("Application Navigator", function() {
     navigator.initialize();
     var fixtures = [{"time":"00:43", "type":"high", "heightInCentimeters":"248"}];
     spyOn(navigator.tidesFinder, "find").andReturn(fixtures);
+    spyOn(navigator.widgets.message, "showMessage");
     spyOn(navigator.widgets.results, "bind").andCallFake(function(results){
       expect(results.length).toBe(1);
-      expect(results[0].type).toBe("Alta");
+      expect(results[0].type).toBe("Pleamar");
     });
 
     navigator.widgets.searchButton.onClick();
  
     expect(navigator.widgets.results.bind).toHaveBeenCalled();
+    expect(navigator.widgets.message.showMessage).not.toHaveBeenCalled();
+  });
+
+  it("shows message when when search return no results", function() {
+    navigator.initialize();
+    var fixtures = [];
+    spyOn(navigator.tidesFinder, "find").andReturn(fixtures);
+    spyOn(navigator.widgets.results, "bind");
+    spyOn(navigator.widgets.message, "showMessage");
+
+    navigator.widgets.searchButton.onClick();
+ 
+    expect(navigator.widgets.message.showMessage).toHaveBeenCalled();
+    expect(navigator.widgets.results.bind).not.toHaveBeenCalled();
   });
 
   it("add location options on initialize", function() {
@@ -139,6 +154,24 @@ describe("Widgets", function(){
       widget.initialize();
       
       expect(widget.postInitialize).toHaveBeenCalled();
+    });
+
+    it("hides widget", function(){ 
+      widget.initialize();
+
+      widget.hide();
+
+      var element = $("body").find("[id=textbox]")[0];
+      expect(element.attributes["style"].value).toContain("display: none");
+    });
+
+    it("shows widget", function(){ 
+      widget.initialize();
+
+      widget.show();
+
+      var element = $("body").find("[id=textbox]")[0];
+      expect(element.attributes["style"].value).toContain("display: inline");
     });
 
   });
