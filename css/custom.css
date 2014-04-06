@@ -1,0 +1,57 @@
+html { 
+  background: url('../img/bg.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body {
+  background-color: transparent;
+}
+
+table{
+  background: none repeat scroll 0 0 rgba(255, 255, 255, 0.5);
+}
+
+.main-container {
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+.content-container {
+  margin: 60px 0;
+  text-align: center;
+}
+.content-container h1 {
+  font-size: 72px;
+  line-height: 1;
+}
+
+.message {
+  font-size: 24.5px;
+  line-height: 40px;
+  text-rendering: optimizelegibility;
+  color: white;
+}
+
+.search-button {
+  display: inline-block;
+  border-radius: 6px;
+  color: #FFFFFF;
+  cursor: pointer;
+  border-color: #FFFFFF;
+  text-shadow: 0px 0px #FFFFFF;
+  font-size: 21px;
+  padding: 14px 24px;
+  background-color: #3498DB;
+}
+
+.search-button:hover, .search-button:focus {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.datepicker td.active, .datepicker td.active:hover {
+  background-image: linear-gradient(to bottom, #3498DB, #3498DB)
+}
