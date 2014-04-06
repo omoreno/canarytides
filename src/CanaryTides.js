@@ -75,6 +75,8 @@ window.CanaryTides = window.CanaryTides || {};
 		var today = now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
 		var defaultDate = config.defaultDate || today;
 		var dateFormat = config.dateFormat || 'dd/mm/yyyy';
+		var weekStart = config.weekStart || 1;
+		var language = config.language || "es";
 
 		this.createElement = function () {
 			return $('<input>', { id: this.elementId }).datepicker();
@@ -82,7 +84,7 @@ window.CanaryTides = window.CanaryTides || {};
 
 		this.postInitialize = function(){
 			var element = this._nativeWidget
-				.datepicker({format: dateFormat})
+				.datepicker({format: dateFormat, weekStart: weekStart, language: language })
 				.datepicker('setValue', defaultDate)
 				.on('changeDate', function(ev){
 					element.hide();
