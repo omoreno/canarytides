@@ -249,7 +249,7 @@ describe("Widgets", function(){
       datePicker.setDate("02/05/2000");
 
       var element = $("body").find("#datepicker");
-      expect(element.val()).toBe("02/05/2000");
+      expect(element.val()).toBe("2 May, 2000");
     });
 
     it("gets selected date", function(){

@@ -76,28 +76,25 @@ window.CanaryTides = window.CanaryTides || {};
 		var defaultDate = config.defaultDate || today;
 		var dateFormat = config.dateFormat || 'dd/mm/yyyy';
 		var weekStart = config.weekStart || 1;
-		var language = config.language || "es";
 
 		this.createElement = function () {
-			return $('<input>', { id: this.elementId }).datepicker();
+			return $('<input>', { id: this.elementId });
 		};
 
 		this.postInitialize = function(){
-			var element = this._nativeWidget
-				.datepicker({format: dateFormat, weekStart: weekStart, language: language })
-				.datepicker('setValue', defaultDate)
-				.on('changeDate', function(ev){
-					element.hide();
-				})
-				.data('datepicker');
+			this._nativeWidget.pickadate({
+					formatSubmit: dateFormat,
+					firstDay: weekStart
+			});
+			this._nativeWidget.pickadate('picker').set('select', defaultDate, { format: dateFormat });
 		};
 
 		this.setDate = function(date){
-			this._nativeWidget.datepicker('setValue', date);
+			this._nativeWidget.pickadate('picker').set('select', date, { format: dateFormat });
 		};
 
 		this.selectedDate = function(){
-			return this._nativeWidget.val();
+			return this._nativeWidget.pickadate('picker').get('select', dateFormat);
 		};
 	};
 	DatePickerWidget.prototype = new Widget();
