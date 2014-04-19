@@ -302,14 +302,8 @@ window.CanaryTides = window.CanaryTides || {};
 			this.widgets["message"] = labelWidget;
 		};
 
-		this.initialize = function(){
-			this.widgets.locationSelector.initialize();
-			this.widgets.dateSelector.initialize();
-			this.widgets.searchButton.initialize();
-			this.widgets.results.initialize();
-			this.widgets.message.initialize();
-
-			this.widgets.searchButton.onClick = function(){
+		var subscribeEvents = function(){
+			self.widgets.searchButton.onClick = function(){
 				self.widgets.results.hide();
 				self.widgets.message.hide();
 				var criteria = {
@@ -326,15 +320,23 @@ window.CanaryTides = window.CanaryTides || {};
 				}
 			};
 
-			this.widgets.dateSelector.onFocus = function(){
+			self.widgets.dateSelector.onFocus = function(){
 				self.widgets.results.hide();
 			};
 
-			this.widgets.locationSelector.onFocus = function(){
+			self.widgets.locationSelector.onFocus = function(){
 				self.widgets.results.hide();
 			};
+		};
 
+		this.initialize = function(){
+			this.widgets.locationSelector.initialize();
+			this.widgets.dateSelector.initialize();
+			this.widgets.searchButton.initialize();
+			this.widgets.results.initialize();
+			this.widgets.message.initialize();
 			this.widgets.locationSelector.addOptions(this.locations);
+			subscribeEvents();
 		};
 	}
 	
