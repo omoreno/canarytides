@@ -330,6 +330,10 @@ window.CanaryTides = window.CanaryTides || {};
 				self.widgets.results.hide();
 			};
 
+			this.widgets.locationSelector.onFocus = function(){
+				self.widgets.results.hide();
+			};
+
 			this.widgets.locationSelector.addOptions(this.locations);
 		};
 	}

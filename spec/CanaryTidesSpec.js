@@ -103,6 +103,15 @@ describe("Application Navigator", function() {
 
     expect(navigator.widgets.results.hide).toHaveBeenCalled();
   });
+
+  it("hides table results on location selector opens", function(){
+    navigator.initialize();
+    spyOn(navigator.widgets.results, "hide");
+    
+    navigator.widgets.locationSelector.onFocus();
+
+    expect(navigator.widgets.results.hide).toHaveBeenCalled();
+  });
 });
 
 describe("Tides Finder", function(){
