@@ -89,6 +89,13 @@ window.CanaryTides = window.CanaryTides || {};
 			this._nativeWidget.pickadate('picker').set('select', defaultDate, { format: dateFormat });
 		};
 
+		this.subscribeEvents = function(){
+			this._nativeWidget.focus(function(e){
+				self.onFocus();
+				e.preventDefault();
+			});
+		};
+
 		this.setDate = function(date){
 			this._nativeWidget.pickadate('picker').set('select', date, { format: dateFormat });
 		};
@@ -96,6 +103,8 @@ window.CanaryTides = window.CanaryTides || {};
 		this.selectedDate = function(){
 			return this._nativeWidget.pickadate('picker').get('select', dateFormat);
 		};
+
+		this.onFocus = function(){}; //to be handled
 	};
 	DatePickerWidget.prototype = new Widget();
 	DatePickerWidget.prototype.constructor = DatePickerWidget;

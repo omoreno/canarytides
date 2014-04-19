@@ -260,6 +260,16 @@ describe("Widgets", function(){
       var selectedDate = datePicker.selectedDate();
       expect(selectedDate).toBe("02/05/2000");
     });
+
+    it("fires event on focus", function(){ 
+      spyOn(datePicker, "onFocus");
+      datePicker.initialize();
+
+      datePicker.nativeWidget().focus();
+      
+      expect(datePicker.onFocus).toHaveBeenCalled();
+    });
+
   });
 
   describe("single choice selectable", function(){
