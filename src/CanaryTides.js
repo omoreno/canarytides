@@ -124,6 +124,13 @@ window.CanaryTides = window.CanaryTides || {};
 			}
 		};
 
+		this.subscribeEvents = function(){
+			this._nativeWidget.focus(function(e){
+				self.onFocus();
+				e.preventDefault();
+			});
+		};
+
 		this.selectOptionByValue = function(value){
 			this._nativeWidget.val(value);
 		};
@@ -131,6 +138,8 @@ window.CanaryTides = window.CanaryTides || {};
 		this.selectedOption = function(){
 			return this._nativeWidget.find('option:selected')[0];
 		};
+
+		this.onFocus = function(){}; //to be handled
 	};
 	SingleChoiceSelectableWidget.prototype = new Widget();
 	SingleChoiceSelectableWidget.prototype.constructor = SingleChoiceSelectableWidget;

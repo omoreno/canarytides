@@ -313,6 +313,15 @@ describe("Widgets", function(){
       expect(selectedOption.text).toBe("item2");
     });
 
+    it("fires event on focus", function(){ 
+      spyOn(singleChoiceSelectable, "onFocus");
+      singleChoiceSelectable.initialize();
+
+      singleChoiceSelectable.nativeWidget().focus();
+      
+      expect(singleChoiceSelectable.onFocus).toHaveBeenCalled();
+    });
+
   });
 
   describe("table", function(){
