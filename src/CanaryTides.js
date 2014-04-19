@@ -138,10 +138,11 @@ window.CanaryTides = window.CanaryTides || {};
 		};
 
 		var drawHeader = function(){
-			var header = "";
+			var header = "<thead>";
 			for (var i = 0, len = self.headerTexts.length; i < len; i++){
 				header += "<th>" + self.headerTexts[i] + "</th>";
 			}
+			header += "</thead>";
 			self._nativeWidget.append(header);
 		};
 
