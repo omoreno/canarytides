@@ -325,6 +325,11 @@ window.CanaryTides = window.CanaryTides || {};
 					self.widgets.message.showMessage(CanaryTides.i18n._("No se han encontrado resultados."));
 				}
 			};
+
+			this.widgets.dateSelector.onFocus = function(){
+				self.widgets.results.hide();
+			};
+
 			this.widgets.locationSelector.addOptions(this.locations);
 		};
 	}

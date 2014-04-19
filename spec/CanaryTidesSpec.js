@@ -94,6 +94,15 @@ describe("Application Navigator", function() {
 
     expect(navigator.widgets.locationSelector.addOptions).toHaveBeenCalled();
   });
+
+  it("hides table results on date selector opens", function(){
+    navigator.initialize();
+    spyOn(navigator.widgets.results, "hide");
+    
+    navigator.widgets.dateSelector.onFocus();
+
+    expect(navigator.widgets.results.hide).toHaveBeenCalled();
+  });
 });
 
 describe("Tides Finder", function(){
