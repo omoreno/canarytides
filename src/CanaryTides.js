@@ -125,6 +125,11 @@ window.CanaryTides = window.CanaryTides || {};
 		};
 
 		this.subscribeEvents = function(){
+			this._nativeWidget.change(function(e){
+				self._nativeWidget.blur();
+				e.preventDefault();
+			});
+
 			this._nativeWidget.focus(function(e){
 				self.onFocus();
 				e.preventDefault();
