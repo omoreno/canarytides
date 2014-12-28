@@ -1,3 +1,3 @@
 # CanaryTides #
 
-This is an app to easy know the tides on Canary Islands. http://canarytides.appspot.com
+A simple application to keep track of the tides in Canary Islands. http://canarytides.appspot.com
